@@ -2,9 +2,8 @@ import withSession, { NextIronHandler } from "../hocs/withSession";
 
 const getUser: NextIronHandler = async ({ req }) => {
   const user = req.session.get("user");
-  console.log(req.url);
 
-  if (!user) {
+  if (!user && req.url !== "/login") {
     return {
       redirect: {
         destination: "/login",
@@ -13,8 +12,14 @@ const getUser: NextIronHandler = async ({ req }) => {
     };
   }
 
+  if (!user && req.url === "/login") {
+    return {
+      props: {},
+    };
+  }
+
   // if session exists redirect to chat
-  if (req.url === "/login") {
+  if (user && req.url === "/login") {
     return {
       redirect: {
         destination: "/",

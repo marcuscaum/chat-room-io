@@ -9,7 +9,7 @@ async function handler(
   res: NextApiResponse
 ): Promise<void> {
   req.session.destroy();
-  res.json({ isLoggedIn: false });
+  res.json({ success: true });
 }
 
 export default withSession(handler);
