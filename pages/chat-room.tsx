@@ -1,10 +1,13 @@
 import type { NextPage } from "next";
-import { Router, useRouter } from "next/dist/client/router";
-import { TextField, Paper, Button, MessagesBox } from "../components";
-import MessageInput from "../components/MessageInput";
 
-const ChatRoom: NextPage = () => {
-  const router = useRouter();
+import { Paper, MessagesBox } from "../components";
+import MessageInput from "../components/MessageInput";
+import getUser from "../utils/getUser";
+
+export const getServerSideProps = getUser;
+
+const ChatRoom: NextPage = ({ user }) => {
+  console.log(user);
   return (
     <div className="justify-self-center md:w-11/12 w-full lg:w-8/12">
       <div className="flex h-screen md:py-10">

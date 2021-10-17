@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Message, Paper } from ".";
 
 const MessagesBox: React.FC<{}> = () => {
+  let messageEnd: HTMLDivElement | null = null;
+
+  // scroll to latest message
+  useEffect(() => {
+    messageEnd?.scrollIntoView({ behavior: "smooth" });
+  });
+
   return (
     <Paper
       elevation={0}
@@ -27,6 +34,11 @@ const MessagesBox: React.FC<{}> = () => {
         <Message content="World" />
         <Message content="World" />
         <Message content="World" />
+        <div
+          ref={(element) => {
+            messageEnd = element;
+          }}
+        ></div>
       </div>
     </Paper>
   );
