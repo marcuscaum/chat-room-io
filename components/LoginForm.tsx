@@ -1,41 +1,16 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import Router from "next/router";
-import { useForm } from "react-hook-form";
-
 import { TextField, Button } from "../components";
-import loginSchema from "../schemas/login";
-
-interface IHandleLogin {
-  name: string;
+import useLoginForm from "../hooks/useLoginForm";
+export interface IUser {
+  name?: string;
   email: string;
+  avatar: string;
+}
+export interface ILoginForm {
+  user?: IUser;
 }
 
-const handleLogin = async ({ name, email }: IHandleLogin) => {
-  try {
-    await axios.post("/api/login", {
-      params: {
-        user: {
-          name,
-          email,
-        },
-      },
-    });
-
-    Router.push("/chat-room");
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const LoginForm: React.FC<{}> = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(loginSchema),
-  });
+const LoginForm: React.FC<ILoginForm> = () => {
+  const { errors, register, handleSubmit } = useLoginForm();
 
   return (
     <div className="p-10">
@@ -52,7 +27,7 @@ const LoginForm: React.FC<{}> = () => {
         error={errors?.email?.message}
         {...register("email")}
       />
-      <Button fullWidth onClick={handleSubmit(handleLogin)} type="button">
+      <Button fullWidth onClick={handleSubmit} type="button">
         Enter
       </Button>
     </div>
