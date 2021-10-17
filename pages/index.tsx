@@ -1,17 +1,23 @@
 import type { NextPage } from "next";
 
-import { Paper, MessagesBox } from "../components";
+import { Paper, MessagesBox, Button } from "../components";
 import MessageInput from "../components/MessageInput";
+import useChatRoom, { socket } from "../hooks/useChatRoom";
 import handleLogout from "../services/logout";
 import getUser from "../utils/getUser";
 
 export const getServerSideProps = getUser;
 
 const ChatRoom: NextPage = ({ user }) => {
+  const dale = useChatRoom();
+
   return (
     <>
       <div className="justify-self-center md:w-11/12 w-full lg:w-8/12">
         <span onClick={handleLogout}>Logout</span>
+        <Button onClick={() => socket.emit("chat message", Date.now())}>
+          Hello
+        </Button>
         <div className="flex h-screen md:py-10">
           <Paper elevation={1}>
             <div className="flex h-full rounded-lg overflow-hidden flex-col md:flex-row">

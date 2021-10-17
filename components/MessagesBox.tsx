@@ -14,7 +14,7 @@ const MessagesBox: React.FC<{}> = () => {
       elevation={0}
       className="min-w-3/4 flex-1 flex justify-end min-h-3/4 lg:min-w-full"
     >
-      <div className="flex flex-col overflow-scroll">
+      <div className="flex flex-col overflow-scroll scrollbar-hide">
         <Message content="Hello" />
         <Message
           author="Marcus"

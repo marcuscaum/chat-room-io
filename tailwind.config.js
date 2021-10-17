@@ -25,5 +25,7 @@ module.exports = {
       margin: ['last', 'first']
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ]
 }
