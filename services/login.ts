@@ -1,26 +1,37 @@
 import axios from "axios";
 import Router from "next/router";
+import { io } from "socket.io-client";
+import { IUser } from "../store/users";
 
-export interface IHandleLogin {
-  name: string;
-  email: string;
-}
+const socket = io();
 
-const handleLogin = async ({ name, email }: IHandleLogin) => {
-  try {
-    await axios.post("/api/login", {
-      params: {
-        user: {
-          name,
-          email,
+const handleLogin = async ({ email }: IUser, setError: any) => {
+  socket.once("get current users", async (currentUsers) => {
+    try {
+      const foundUser = currentUsers.find(
+        (user: IUser) => user.email === email
+      );
+      if (foundUser) {
+        return setError("email", {
+          message: "Email already taken!",
+        });
+      }
+      await axios.post("/api/login", {
+        params: {
+          user: {
+            name,
+            email,
+          },
         },
-      },
-    });
+      });
 
-    Router.push("/");
-  } catch (error) {
-    console.error(error);
-  }
+      Router.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  socket.emit("get current users");
 };
 
 export default handleLogin;

@@ -22,7 +22,8 @@ module.exports = {
   },
   variants: {
     extend: {
-      margin: ['last', 'first']
+      margin: ['last', 'first'],
+      backgroundColor: ['active', 'disabled'],
     },
   },
   plugins: [

@@ -1,24 +1,25 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import Router from "next/router";
 import { useForm } from "react-hook-form";
 
 import loginSchema from "../schemas/login";
 import handleLogin from "../services/login";
+import { IUser } from "../store/users";
 
 const useLoginForm = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(loginSchema),
+    mode: "onChange",
   });
 
   return {
     errors,
     register,
-    handleSubmit: handleSubmit(handleLogin),
+    handleSubmit: handleSubmit((data) => handleLogin(data as IUser, setError)),
   };
 };
 

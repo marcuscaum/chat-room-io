@@ -1,7 +1,6 @@
 import * as z from "zod";
 
 const loginSchema = z.object({
-  name: z.string(),
   email: z
     .string()
     .nonempty({ message: "Email is required" })

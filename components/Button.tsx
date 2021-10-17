@@ -10,12 +10,14 @@ const Button: React.FC<IButton> = ({
   onClick,
   fullWidth,
   className,
+  disabled,
 }) => {
   return (
     <button
       type={type}
       onClick={onClick}
-      className={`p-2 text-sm rounded-md bg-green-500 hover:bg-green-700 text-white transition duration-300 ease-in-out ${
+      disabled={disabled}
+      className={`p-2 text-sm disabled:bg-gray-300 rounded-md bg-green-500 active:bg-green-700 text-white transition duration-300 ease-in-out ${
         fullWidth && "w-full"
       } ${className}`}
     >

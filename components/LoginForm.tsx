@@ -1,10 +1,6 @@
 import { TextField, Button } from "../components";
 import useLoginForm from "../hooks/useLoginForm";
-export interface IUser {
-  name?: string;
-  email: string;
-  avatar: string;
-}
+import { IUser } from "../store/users";
 export interface ILoginForm {
   user?: IUser;
 }
@@ -14,20 +10,22 @@ const LoginForm: React.FC<ILoginForm> = () => {
 
   return (
     <div className="p-10">
-      <TextField
-        label="(optional)"
-        placeholder="What is your name?"
-        fullWidth
-        {...register("name")}
-      />
+      <div className="text-lg mb-4 text-gray-400 text-center">
+        Enter chat room:
+      </div>
       <TextField
         type="email"
-        placeholder="Enter your email"
+        placeholder="What is your email?"
         fullWidth
         error={errors?.email?.message}
         {...register("email")}
       />
-      <Button fullWidth onClick={handleSubmit} type="button">
+      <Button
+        disabled={Boolean(errors?.email?.message)}
+        fullWidth
+        onClick={handleSubmit}
+        type="button"
+      >
         Enter
       </Button>
     </div>

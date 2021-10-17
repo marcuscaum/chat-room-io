@@ -34,7 +34,7 @@ const TextField = (
           ref={ref}
           placeholder={placeholder}
           className={`${TextFieldStyle} ${fullWidth ? "w-full" : "w-1/2"} ${
-            error ? "focus:border-red-300" : "focus:border-blue-200  "
+            error ? "border-red-300" : "focus:border-blue-200  "
           }`}
           {...restProps}
         />

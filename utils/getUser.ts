@@ -4,23 +4,26 @@ import connectToChatRoom from "./connectToChatRoom";
 const getUser: NextIronHandler = async ({ req, res }) => {
   const user = req.session.get("user");
 
-  if (!user && req.url !== "/login") {
+  // connect to the chat room or start a new one if there is no one
+  connectToChatRoom(res);
+
+  if (!user && !req.url?.includes("/login")) {
     return {
       redirect: {
         destination: "/login",
-        permanent: false,
+        permanent: true,
       },
     };
   }
 
-  if (!user && req.url === "/login") {
+  if (!user && req.url?.includes("/login")) {
     return {
       props: {},
     };
   }
 
   // if session exists redirect to chat
-  if (user && req.url === "/login") {
+  if (user && req.url?.includes("/login")) {
     return {
       redirect: {
         destination: "/",
@@ -29,11 +32,8 @@ const getUser: NextIronHandler = async ({ req, res }) => {
     };
   }
 
-  // connect to the chat room or start a new one if there is no one
-  await connectToChatRoom(res);
-
   return {
-    props: { user: req.session.get("user") },
+    props: { user },
   };
 };
 

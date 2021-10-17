@@ -1,4 +1,3 @@
-import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Session } from "next-iron-session";
 import withSession from "../../hocs/withSession";
@@ -11,14 +10,8 @@ async function handler(
 ): Promise<void> {
   try {
     const { user } = req.body.params;
-    const { data: avatar } = await axios.get(
-      `https://avatars.dicebear.com/api/jdenticon/${user.email}.svg`
-    );
 
-    req.session.set("user", {
-      ...user,
-      avatar,
-    });
+    req.session.set("user", user);
 
     await req.session.save();
 
