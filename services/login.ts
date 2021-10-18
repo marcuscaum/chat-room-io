@@ -6,6 +6,9 @@ import { IUser } from "../store/users";
 const socket = io();
 
 const handleLogin = async ({ email }: IUser, setError: any) => {
+  // start socket io
+  await fetch("/api/socketio");
+
   socket.once("get current users", async (currentUsers) => {
     try {
       const foundUser = currentUsers.find(

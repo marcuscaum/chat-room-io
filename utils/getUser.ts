@@ -1,11 +1,8 @@
+import axios from "axios";
 import withSession, { NextIronHandler } from "../hocs/withSession";
-import connectToChatRoom from "./connectToChatRoom";
 
 const getUser: NextIronHandler = async ({ req, res }) => {
   const user = req.session.get("user");
-
-  // connect to the chat room or start a new one if there is no one
-  connectToChatRoom(res);
 
   if (!user && !req.url?.includes("/login")) {
     return {
