@@ -1,5 +1,3 @@
-import type { NextPage } from "next";
-import { useRecoilValue } from "recoil";
 import { io } from "socket.io-client";
 
 import { Paper, MessagesBox, Button } from "../components";
@@ -7,14 +5,14 @@ import MessageInput from "../components/MessageInput";
 import UsersList from "../components/UsersList";
 import useChatRoom from "../hooks/useChatRoom";
 import handleLogout from "../services/logout";
-import usersState from "../store/users";
+import { IUser } from "../store/users";
 import getUser from "../utils/getUser";
 
 export const getServerSideProps = getUser;
 
 const socket = io();
 
-const ChatRoom: NextPage = ({ user }) => {
+const ChatRoom: React.FC<{ user: IUser }> = ({ user }) => {
   useChatRoom({ currentUser: user, socket });
 
   return (
