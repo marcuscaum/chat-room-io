@@ -16,13 +16,7 @@ const useChatRoom = ({
   const setUsers = useSetRecoilState(usersState);
 
   const addMessage = (message: IMessage) => {
-    const newMessage = {
-      content: message.content,
-      email: currentUser.email,
-      type: message.type,
-    };
-
-    setMessages((oldMessages) => [...oldMessages, newMessage]);
+    setMessages((oldMessages) => [...oldMessages, message]);
   };
 
   const setCurrentUsers = (users: IUser[]) => {

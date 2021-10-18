@@ -12,32 +12,33 @@ const Message: React.FC<IMessageComponent> = ({
   type,
   user,
 }) => {
-  const isUserMessage = email !== user.email;
-  const conditionalStyles = isUserMessage
-    ? "bg-gray-100 text-left self-start"
-    : "bg-blue-100 text-left self-end";
+  const isUserMessage = email === user.email;
 
   if (type === "broadcast") {
     return (
-      <span className="text-sm w-full bg-gray-100 flex text-gray-400 p-2 text-center justify-center">
+      <span className="text-sm w-full bg-gray-100 mb flex text-gray-400 p-2 text-center justify-center">
         {content}
       </span>
     );
   }
 
   return (
-    <>
-      {isUserMessage && (
-        <span className={`text-xs ml-4 mb-2 text-gray-400  first:mt-4`}>
-          {email}
-        </span>
-      )}
+    <div
+      className={`flex-1 m-2 flex ${
+        isUserMessage ? "justify-end" : "justify-start"
+      }`}
+    >
       <div
-        className={`w-auto inline-block m-4 mt-0 rounded p-2 mb-4 first:mt-4 ${conditionalStyles}`}
+        className={`w-auto inline-block rounded p-2  ${
+          isUserMessage ? "bg-blue-100 text-right" : "bg-gray-100 text-left"
+        }`}
       >
-        {content}
+        <div className={`text-xs m-2 text-gray-400`}>
+          {isUserMessage ? "Me" : email}:
+        </div>
+        <div className="m-2">{content}</div>
       </div>
-    </>
+    </div>
   );
 };
 

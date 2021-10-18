@@ -29,7 +29,7 @@ const ChatRoom: NextPage = ({ user }) => {
               </div>
               <div className="bg-blue-500 h-3/4 md:h-full flex-1 p-2 flex-col flex justify-between content-end">
                 <MessagesBox user={user} />
-                <MessageInput />
+                <MessageInput user={user} />
               </div>
             </div>
           </Paper>

@@ -6,7 +6,6 @@ import { IUser } from "../store/users";
 
 const MessagesBox: React.FC<{ user: IUser }> = ({ user }) => {
   const messages = useRecoilValue(messagesState);
-  console.log(messages);
   let messageEnd: HTMLDivElement | null = null;
 
   // scroll to latest message
@@ -20,10 +19,12 @@ const MessagesBox: React.FC<{ user: IUser }> = ({ user }) => {
       className="relative h-full flex overflow-y-scroll flex-col-reverse"
     >
       <div className="flex-initial">
-        {messages.map((values) => (
-          <>
-            <Message {...values} key={values.email} user={user} />
-          </>
+        {messages.map((values, index) => (
+          <Message
+            {...values}
+            key={values.email + values.content + index}
+            user={user}
+          />
         ))}
         <div
           ref={(element) => {
