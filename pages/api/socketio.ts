@@ -3,7 +3,7 @@ import { NextIronRequest } from "../../hocs/withSession";
 import serverEvents from "../../utils/serverEvents";
 
 async function handler(req: NextIronRequest, res: any): Promise<void> {
-  if (!res.socket.server.io) {
+  if (!res.socket?.server.io) {
     console.log("Starting socket.io");
 
     const io = new Server(res.socket.server);
