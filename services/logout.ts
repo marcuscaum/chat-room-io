@@ -4,7 +4,7 @@ import Router from "next/router";
 import { io } from "socket.io-client";
 import { IUser } from "../store/users";
 
-const socket = io();
+const socket = io("/");
 
 const handleLogout = async (user: IUser) => {
   try {

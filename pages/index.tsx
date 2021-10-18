@@ -10,7 +10,7 @@ import getUser from "../utils/getUser";
 
 export const getServerSideProps = getUser;
 
-const socket = io();
+const socket = io("/");
 
 const ChatRoom: React.FC<{ user: IUser }> = ({ user }) => {
   useChatRoom({ currentUser: user, socket });
