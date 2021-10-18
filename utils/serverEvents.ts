@@ -1,11 +1,14 @@
 import { uniqBy } from "lodash";
-import Server from "next/dist/server/next-server";
 import { IMessage } from "../store/messages";
 import { IUser } from "../store/users";
 
-let currentUsers: IUser[] = [];
+interface User extends IUser {
+  socket: number;
+}
 
-const addUserToCurrentUsers = (user: IUser): void => {
+let currentUsers: User[] = [];
+
+const addUserToCurrentUsers = (user: User): void => {
   const newUsers = uniqBy([...currentUsers, user], "email");
   currentUsers = newUsers;
 };
@@ -34,7 +37,7 @@ const serverEvents = (io: any) => {
           `${user.email} joined the chat.`
         );
       }
-      addUserToCurrentUsers(user);
+      addUserToCurrentUsers({ ...user, socket: socket.id });
       io.emit("current users", currentUsers);
     });
 
@@ -44,6 +47,20 @@ const serverEvents = (io: any) => {
 
     socket.on("chat message", (message: IMessage) => {
       io.emit("chat message", message);
+    });
+
+    socket.on("disconnect", () => {
+      const user = currentUsers.find((user) => user.socket === socket.id);
+      const newUsers = currentUsers.filter((user) => user.socket !== socket.id);
+      currentUsers = newUsers;
+      io.emit("current users", currentUsers);
+
+      if (user) {
+        socket.broadcast.emit(
+          "general message",
+          `${user?.email} left the chat.`
+        );
+      }
     });
   });
 };
