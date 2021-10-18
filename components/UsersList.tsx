@@ -1,7 +1,10 @@
-import { IUser } from "../store/users";
+import { useRecoilValue } from "recoil";
+import usersState, { IUser } from "../store/users";
 import UserCard from "./UserCard";
 
-const UsersList: React.FC<{ users: IUser[] }> = ({ users }) => {
+const UsersList: React.FC<{}> = () => {
+  const users = useRecoilValue(usersState);
+
   return (
     <>
       <div className="text-sm text-center p-2 text-white font-extrabold">

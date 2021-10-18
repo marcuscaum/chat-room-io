@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { io } from "socket.io-client";
-
-const socket = io();
+import { Socket } from "socket.io-client";
 
 import messagesState, { IMessage } from "../store/messages";
 import usersState, { IUser } from "../store/users";
 
-const useChatRoom = (currentUser: IUser) => {
+const useChatRoom = ({
+  currentUser,
+  socket,
+}: {
+  currentUser: IUser;
+  socket: Socket;
+}) => {
   const setMessages = useSetRecoilState(messagesState);
   const setUsers = useSetRecoilState(usersState);
 
@@ -40,7 +44,7 @@ const useChatRoom = (currentUser: IUser) => {
         type: "broadcast",
       })
     );
-  }, []);
+  }, [socket]);
 };
 
 export default useChatRoom;

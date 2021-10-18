@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
+import { useRecoilValue } from "recoil";
 import { Message, Paper } from ".";
+import messagesState from "../store/messages";
+import { IUser } from "../store/users";
 
-const MessagesBox: React.FC<{}> = () => {
+const MessagesBox: React.FC<{ user: IUser }> = ({ user }) => {
+  const messages = useRecoilValue(messagesState);
+  console.log(messages);
   let messageEnd: HTMLDivElement | null = null;
 
   // scroll to latest message
@@ -12,28 +17,14 @@ const MessagesBox: React.FC<{}> = () => {
   return (
     <Paper
       elevation={0}
-      className="min-w-3/4 flex-1 flex justify-end min-h-3/4 lg:min-w-full"
+      className="relative h-full flex overflow-y-scroll flex-col-reverse"
     >
-      <div className="flex flex-col overflow-scroll scrollbar-hide">
-        <Message content="Hello" />
-        <Message
-          author="Marcus"
-          content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores amet, ipsam dolore quia odit iusto molestias maxime reiciendis, iste maiores earum labore? At ab vitae repudiandae neque fugiat iste reprehenderit."
-        />
-        <Message
-          author="João"
-          content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores amet, ipsam dolore quia odit iusto molestias maxime reiciendis, iste maiores earum labore? At ab vitae repudiandae neque fugiat iste reprehenderit."
-        />
-        <Message content="World" />
-        <Message content="World" />
-        <Message content="World" />
-        <Message content="World" />
-        <Message content="World" />
-        <Message content="World" />
-        <Message content="World" />
-        <Message content="World" />
-        <Message content="World" />
-        <Message content="World" />
+      <div className="flex-initial">
+        {messages.map((values) => (
+          <>
+            <Message {...values} key={values.email} user={user} />
+          </>
+        ))}
         <div
           ref={(element) => {
             messageEnd = element;

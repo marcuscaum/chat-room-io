@@ -13,6 +13,9 @@ const removeUserFromCurrentUsers = (user: IUser): void => {
   const newUsers = currentUsers.filter(({ email }) => email !== user.email);
   currentUsers = newUsers;
 };
+const isUserConnected = (user: IUser): boolean => {
+  return currentUsers.some(({ email }) => user.email === email);
+};
 
 const connectToChatRoom = (res: any) => {
   if (res.socket.server?.io) {
@@ -22,7 +25,7 @@ const connectToChatRoom = (res: any) => {
   const io = new Server(res.socket.server);
 
   io.on("connection", (socket) => {
-    socket.emit("general message", "Welcome to ChatRoomIO!");
+    socket.emit("general message", "Welcome to the chat!");
 
     socket.on("user disconnected", (user: IUser) => {
       socket.broadcast.emit("general message", `${user.email} left the chat.`);
@@ -31,11 +34,12 @@ const connectToChatRoom = (res: any) => {
     });
 
     socket.on("user connected", (user: IUser) => {
-      socket.broadcast.emit(
-        "general message",
-        `${user.email} joined the chat.`
-      );
-
+      if (!isUserConnected(user)) {
+        socket.broadcast.emit(
+          "general message",
+          `${user.email} joined the chat.`
+        );
+      }
       addUserToCurrentUsers(user);
       io.emit("current users", currentUsers);
     });

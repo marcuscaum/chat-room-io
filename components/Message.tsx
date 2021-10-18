@@ -1,26 +1,39 @@
 import React from "react";
+import { IMessage } from "../store/messages";
+import { IUser } from "../store/users";
 
-interface IMessage {
-  content: string;
-  author?: string;
+interface IMessageComponent extends IMessage {
+  user: IUser;
 }
 
-const Message: React.FC<IMessage> = ({ content, author }) => {
-  const conditionalStyles = author
-    ? "bg-gray-100 text-left"
+const Message: React.FC<IMessageComponent> = ({
+  content,
+  email,
+  type,
+  user,
+}) => {
+  const isUserMessage = email !== user.email;
+  const conditionalStyles = isUserMessage
+    ? "bg-gray-100 text-left self-start"
     : "bg-blue-100 text-left self-end";
+
+  if (type === "broadcast") {
+    return (
+      <span className="text-sm w-full bg-gray-100 flex text-gray-400 p-2 text-center justify-center">
+        {content}
+      </span>
+    );
+  }
 
   return (
     <>
-      {author && (
-        <span
-          className={`text-xs ml-4 mb-2 hover:text-blue-700 cursor-pointer`}
-        >
-          {author}
+      {isUserMessage && (
+        <span className={`text-xs ml-4 mb-2 text-gray-400  first:mt-4`}>
+          {email}
         </span>
       )}
       <div
-        className={`flex m-4 mt-0 max-w-prose rounded p-2 mb-4 first:mt-4 ${conditionalStyles}`}
+        className={`w-auto inline-block m-4 mt-0 rounded p-2 mb-4 first:mt-4 ${conditionalStyles}`}
       >
         {content}
       </div>

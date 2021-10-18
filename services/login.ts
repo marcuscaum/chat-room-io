@@ -19,7 +19,6 @@ const handleLogin = async ({ email }: IUser, setError: any) => {
       await axios.post("/api/login", {
         params: {
           user: {
-            name,
             email,
           },
         },

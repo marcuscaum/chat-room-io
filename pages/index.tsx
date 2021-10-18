@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useRecoilValue } from "recoil";
+import { io } from "socket.io-client";
 
 import { Paper, MessagesBox, Button } from "../components";
 import MessageInput from "../components/MessageInput";
@@ -11,9 +12,10 @@ import getUser from "../utils/getUser";
 
 export const getServerSideProps = getUser;
 
+const socket = io();
+
 const ChatRoom: NextPage = ({ user }) => {
-  const dale = useChatRoom(user);
-  const users = useRecoilValue(usersState);
+  useChatRoom({ currentUser: user, socket });
 
   return (
     <>
@@ -23,10 +25,10 @@ const ChatRoom: NextPage = ({ user }) => {
           <Paper elevation={1}>
             <div className="flex h-full md:rounded-lg overflow-hidden flex-col md:flex-row">
               <div className="bg-blue-600 p-2 flex-col flex md:h-full min-w-1/4">
-                <UsersList users={users} />
+                <UsersList />
               </div>
               <div className="bg-blue-500 h-3/4 md:h-full flex-1 p-2 flex-col flex justify-between content-end">
-                <MessagesBox />
+                <MessagesBox user={user} />
                 <MessageInput />
               </div>
             </div>

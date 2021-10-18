@@ -4,7 +4,7 @@ import { IUser } from "./users";
 export interface IMessage {
   content: string;
   email?: IUser["email"];
-  type: "default" | "broadcast";
+  type?: "broadcast";
 }
 
 const messagesState = atom({
