@@ -2,9 +2,9 @@ import type { NextPage } from "next";
 
 import { Paper } from "../components";
 import LoginForm from "../components/LoginForm";
-import getUser from "../utils/getUser";
+import redirectUser from "../utils/redirectUser";
 
-export const getServerSideProps = getUser;
+export const getServerSideProps = redirectUser;
 
 const Login: NextPage = () => {
   return (

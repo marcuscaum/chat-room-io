@@ -1,10 +1,8 @@
 import axios from "axios";
 import Router from "next/router";
 
-import { io } from "socket.io-client";
 import { IUser } from "../store/users";
-
-const socket = io("/");
+import socket from "./socketio";
 
 const handleLogout = async (user: IUser) => {
   try {

@@ -1,0 +1,29 @@
+{
+  "name": "chat-room-io-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch-ts": "tsc -w",
+    "watch-node": "nodemon dist/server.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yello.bold, cyan.bold\" \"yarn run watch-ts\" \"yarn run watch-node\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.5",
+    "@types/lodash.uniqby": "^4.7.6",
+    "@types/node": "^16.11.1",
+    "@types/socket.io": "^3.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "concurrently": "^6.3.0",
+    "nodemon": "^2.0.13"
+  },
+  "dependencies": {
+    "lodash.uniqby": "^4.7.0",
+    "socket.io": "^4.3.1"
+  }
+}

@@ -1,14 +1,9 @@
 import axios from "axios";
 import Router from "next/router";
-import { io } from "socket.io-client";
 import { IUser } from "../store/users";
-
-const socket = io("/");
+import socket from "./socketio";
 
 const handleLogin = async ({ email }: IUser, setError: any) => {
-  // start socket io
-  await fetch("/api/socketio");
-
   socket.once("get current users", async (currentUsers) => {
     try {
       const foundUser = currentUsers.find(

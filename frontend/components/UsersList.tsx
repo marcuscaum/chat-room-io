@@ -11,6 +11,11 @@ const UsersList: React.FC<{}> = () => {
         Users list
       </div>
       <div className="flex-1 rounded-lg bg-blue-500">
+        {!users.length && (
+          <div className="text-blue-300 text-center mt-3">
+            No users available.
+          </div>
+        )}
         {users.map((user) => (
           <UserCard user={user} key={user.email} />
         ))}

@@ -1,7 +1,5 @@
-import { io } from "socket.io-client";
+import socket from "../services/socketio";
 import { IMessage } from "../store/messages";
-
-const socket = io("/");
 
 const sendMessage = (message: IMessage) => {
   socket.emit("chat message", message);

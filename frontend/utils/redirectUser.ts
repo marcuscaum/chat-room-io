@@ -1,7 +1,6 @@
-import axios from "axios";
 import withSession, { NextIronHandler } from "../hocs/withSession";
 
-const getUser: NextIronHandler = async ({ req, res }) => {
+const redirectUser: NextIronHandler = async ({ req, res }) => {
   const user = req.session.get("user");
 
   if (!user && !req.url?.includes("/login")) {
@@ -34,4 +33,4 @@ const getUser: NextIronHandler = async ({ req, res }) => {
   };
 };
 
-export default withSession(getUser);
+export default withSession(redirectUser);

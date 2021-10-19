@@ -1,4 +1,4 @@
-import { TextField, Button } from "../components";
+import { TextField, Button } from ".";
 import useLoginForm from "../hooks/useLoginForm";
 import { IUser } from "../store/users";
 export interface ILoginForm {

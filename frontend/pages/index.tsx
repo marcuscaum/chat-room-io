@@ -1,19 +1,15 @@
-import { io } from "socket.io-client";
-
-import { Paper, MessagesBox, Button } from "../components";
+import { Paper, MessagesBox } from "../components";
 import MessageInput from "../components/MessageInput";
 import UsersList from "../components/UsersList";
-import useChatRoom from "../hooks/useChatRoom";
+import useSocketEvents from "../hooks/useSocketEvents";
 import handleLogout from "../services/logout";
+import redirectUser from "../utils/redirectUser";
 import { IUser } from "../store/users";
-import getUser from "../utils/getUser";
 
-export const getServerSideProps = getUser;
-
-const socket = io("/");
+export const getServerSideProps = redirectUser;
 
 const ChatRoom: React.FC<{ user: IUser }> = ({ user }) => {
-  useChatRoom({ currentUser: user, socket });
+  useSocketEvents({ currentUser: user });
 
   return (
     <>

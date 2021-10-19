@@ -1,17 +1,11 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { Socket } from "socket.io-client";
+import socket from "../services/socketio";
 
 import messagesState, { IMessage } from "../store/messages";
 import usersState, { IUser } from "../store/users";
 
-const useChatRoom = ({
-  currentUser,
-  socket,
-}: {
-  currentUser: IUser;
-  socket: Socket;
-}) => {
+const useSocketEvents = ({ currentUser }: { currentUser: IUser }) => {
   const setMessages = useSetRecoilState(messagesState);
   const setUsers = useSetRecoilState(usersState);
 
@@ -27,18 +21,26 @@ const useChatRoom = ({
     setUsers(usersList);
   };
 
+  const generalMessage = (message: string) =>
+    addMessage({
+      content: message,
+      type: "broadcast",
+    });
+
   useEffect(() => {
     socket.emit("user connected", currentUser);
 
     socket.on("chat message", addMessage);
     socket.on("current users", setCurrentUsers);
-    socket.on("general message", (message) =>
-      addMessage({
-        content: message,
-        type: "broadcast",
-      })
-    );
+    socket.on("general message", generalMessage);
+    socket.on("disconnect", () => socket.removeAllListeners());
+
+    return () => {
+      socket.off("chat message", addMessage);
+      socket.off("current users", setCurrentUsers);
+      socket.off("general message", generalMessage);
+    };
   }, [socket]);
 };
 
-export default useChatRoom;
+export default useSocketEvents;
