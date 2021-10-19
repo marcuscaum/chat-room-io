@@ -1,8 +1,5 @@
 import { createServer } from "http";
-import lodash from "lodash";
 import { Server, Socket } from "socket.io";
-
-const { uniqBy } = lodash;
 
 interface IUser {
   email: string;
@@ -16,9 +13,13 @@ interface IMessage {
 }
 
 const addUserToCurrentUsers = (user: IUser): void => {
-  const newUsers = uniqBy([...currentUsers, user], "email");
-  currentUsers = newUsers;
+  const emails = [...currentUsers, user].map((user) => user.email);
+  const uniqueUsers = currentUsers.filter(
+    ({ email }) => !emails.includes(email)
+  );
+  currentUsers = uniqueUsers;
 };
+
 const removeUserFromCurrentUsers = (user: IUser): void => {
   const newUsers = currentUsers.filter(({ email }) => email !== user.email);
   currentUsers = newUsers;
