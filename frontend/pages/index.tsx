@@ -1,4 +1,4 @@
-import { Paper, MessagesBox } from "../components";
+import { Paper, MessagesBox, Button } from "../components";
 import MessageInput from "../components/MessageInput";
 import UsersList from "../components/UsersList";
 import useSocketEvents from "../hooks/useSocketEvents";
@@ -21,7 +21,18 @@ const ChatRoom: React.FC<{ user: IUser }> = ({ user }) => {
               <div className="bg-blue-600 p-2 flex-col flex md:h-full min-w-1/4">
                 <UsersList />
               </div>
-              <div className="bg-blue-500 h-3/4 md:h-full flex-1 p-2 flex-col flex justify-between content-end">
+              <div className="bg-blue-500 h-3/4 md:h-full flex-1 p-2 pt-0 flex-col flex justify-between content-end">
+                <div className="test-xs text-blue-200 p-2 justify-between flex">
+                  <div className="flex">
+                    Hello,<strong className="ml-1">{user.email}</strong>
+                  </div>
+                  <div
+                    className="flex hover:underline cursor-pointer"
+                    onClick={() => handleLogout(user)}
+                  >
+                    Leave chat
+                  </div>
+                </div>
                 <MessagesBox user={user} />
                 <MessageInput user={user} />
               </div>
