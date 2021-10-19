@@ -14,7 +14,7 @@ interface IMessage {
 
 const addUserToCurrentUsers = (user: IUser): void => {
   const emails = [...currentUsers, user].map((user) => user.email);
-  const uniqueUsers = currentUsers.filter(
+  const uniqueUsers = [...currentUsers, user].filter(
     ({ email }) => !emails.includes(email)
   );
   currentUsers = uniqueUsers;

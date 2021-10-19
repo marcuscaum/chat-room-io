@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import usersState, { IUser } from "../store/users";
+import usersState from "../store/users";
 import UserCard from "./UserCard";
 
 const UsersList: React.FC<{}> = () => {
