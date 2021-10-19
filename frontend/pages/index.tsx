@@ -14,7 +14,6 @@ const ChatRoom: React.FC<{ user: IUser }> = ({ user }) => {
   return (
     <>
       <div className="justify-self-center md:w-11/12 w-full lg:w-8/12">
-        <span onClick={() => handleLogout(user)}>Logout</span>
         <div className="flex h-screen md:py-10">
           <Paper elevation={1}>
             <div className="flex h-full md:rounded-lg overflow-hidden flex-col md:flex-row">
