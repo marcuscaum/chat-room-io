@@ -38,10 +38,7 @@ const io = new Server(httpServer, {
   },
 });
 
-console.log("Server starting...");
-
 io.on("connection", (socket: Socket) => {
-  console.log("Server started.", socket.id);
   const userDisconnected = (user: IUser) => {
     socket.broadcast.emit("general message", `${user.email} left the chat.`);
     removeUserFromCurrentUsers(user);
