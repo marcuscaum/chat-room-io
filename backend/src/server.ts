@@ -15,7 +15,7 @@ interface IMessage {
 const addUserToCurrentUsers = (user: IUser): void => {
   const emails = [...currentUsers, user].map((user) => user.email);
   const uniqueUsers = [...currentUsers, user].filter(
-    ({ email }) => !emails.includes(email)
+    ({ email }, index) => !emails.includes(email, index + 1)
   );
   currentUsers = uniqueUsers;
 };
@@ -59,6 +59,7 @@ io.on("connection", (socket: Socket) => {
   };
 
   const getCurrentUsers = () => {
+    console.log(getCurrentUsers);
     io.emit("get current users", currentUsers);
   };
 
