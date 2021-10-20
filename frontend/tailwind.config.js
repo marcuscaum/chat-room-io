@@ -26,7 +26,8 @@ module.exports = {
       backgroundColor: ['active', 'disabled'],
     },
   },
-  plugins: [
-    require('tailwind-scrollbar-hide')
-  ]
+  safelist: [
+    'text-blue-400',
+  ],
+  plugins: []
 }
