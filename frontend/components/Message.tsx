@@ -1,6 +1,12 @@
-import React from "react";
+import React, { Suspense, useState } from "react";
 import { IMessage } from "../store/messages";
 import { IUser } from "../store/users";
+import {
+  extractUrlFromString,
+  replaceUrlWithLinks,
+} from "../utils/urlHandlers";
+import URLPreview from "./URLPreview";
+import URLPreviewSkeleton from "./URLPreviewSkeleton";
 
 interface IMessageComponent extends IMessage {
   user: IUser;
@@ -13,6 +19,7 @@ const Message: React.FC<IMessageComponent> = ({
   user,
 }) => {
   const isUserMessage = email === user.email;
+  const foundUrl = extractUrlFromString(content);
 
   if (type === "broadcast") {
     return (
@@ -29,17 +36,24 @@ const Message: React.FC<IMessageComponent> = ({
       }`}
     >
       <div
-        className={`w-auto inline-block rounded p-2  ${
-          isUserMessage ? "bg-blue-100 text-right" : "bg-gray-100 text-left"
+        className={`w-auto max-w-3/4 inline-block rounded p-2 text-left ${
+          isUserMessage ? "bg-blue-100" : "bg-gray-100"
         }`}
       >
         <div className={`text-xs m-2 text-gray-400`}>
           {isUserMessage ? "Me" : email}:
         </div>
-        <div className="m-2">{content}</div>
+        <div className="m-2">
+          {replaceUrlWithLinks(content)}
+          {foundUrl && (
+            <Suspense fallback={<URLPreviewSkeleton />}>
+              <URLPreview url={foundUrl} />
+            </Suspense>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Message;
+export default React.memo(Message);

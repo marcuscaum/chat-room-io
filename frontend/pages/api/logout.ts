@@ -1,8 +1,5 @@
 import { NextApiResponse } from "next";
-import withSession, {
-  NextIronHandler,
-  NextIronRequest,
-} from "../../hocs/withSession";
+import withSession, { NextIronRequest } from "../../hocs/withSession";
 
 async function handler(
   req: NextIronRequest,
