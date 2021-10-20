@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useRef } from "react";
 import { IMessage } from "../store/messages";
 import { IUser } from "../store/users";
