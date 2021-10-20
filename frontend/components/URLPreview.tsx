@@ -32,7 +32,7 @@ const URLPreview: React.FC<{ url: string }> = ({ url }) => {
   }
 
   return (
-    <div className=" justify-between mt-4 border-l-2 p-2 border-blue-400 bg-blue-100">
+    <div className="justify-between mt-4 border-l-2 p-2 border-blue-400 bg-blue-100 ">
       <div className="flex flex-col">
         <a
           href={url}
@@ -45,7 +45,7 @@ const URLPreview: React.FC<{ url: string }> = ({ url }) => {
         <p className="text-gray-800 font-bold mb-1">{title}</p>
         <p className="text-gray-600 text-xs mb-2">{description}</p>
         <div
-          className="w-full h-52 bg-no-repeat bg-contain"
+          className="w-full h-24 sm:h-52 bg-no-repeat bg-contain"
           style={{ backgroundImage: `url(${image})` }}
         ></div>
       </div>
