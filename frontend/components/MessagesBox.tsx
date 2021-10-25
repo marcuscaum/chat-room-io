@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import { Message, Paper } from ".";
 import messagesState from "../store/messages";
 import { IUser } from "../store/users";
+import AutocompleteSuggestions from "./AutoCompleteSuggestions";
 
 const MessagesBox: React.FC<{ user: IUser }> = ({ user }) => {
   const messages = useRecoilValue(messagesState);
@@ -31,6 +32,7 @@ const MessagesBox: React.FC<{ user: IUser }> = ({ user }) => {
             messageEnd = element;
           }}
         ></div>
+        <AutocompleteSuggestions />
       </div>
     </Paper>
   );

@@ -12,7 +12,7 @@
     "@hookform/resolvers": "^2.8.2",
     "axios": "^0.23.0",
     "cheerio": "^1.0.0-rc.10",
-    "lodash.uniqby": "^4.7.0",
+    "intercept-stdout": "^0.1.2",
     "next": "11.1.2",
     "next-iron-session": "^4.2.0",
     "react": "17.0.2",
@@ -26,10 +26,9 @@
     "zod": "^3.9.8"
   },
   "devDependencies": {
-    "@types/lodash.uniqby": "^4.7.6",
     "@types/react": "17.0.30",
     "autoprefixer": "^10.3.7",
-    "eslint": "8.0.1",
+    "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "eslint-plugin-react-hooks": "^4.2.1-alpha-930c9e7ee-20211015",
     "postcss": "^8.3.9",

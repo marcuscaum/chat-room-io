@@ -1,47 +1,74 @@
-import { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useSetRecoilState } from "recoil";
+
 import { IMessage } from "../store/messages";
 import { IUser } from "../store/users";
 import sendMessage from "../utils/sendMessage";
 
-const useMessageInput = ({ user }: { user: IUser }) => {
-  const message = useRef("");
-  const inputRef = useRef<HTMLDivElement>(null);
+const DEFAULT_TEXTAREA_HEIGHT = 40;
 
-  const clearField = () => {
-    inputRef.current!.textContent = "";
-    message.current = "";
+const useMessageInput = ({ user }: { user: IUser }) => {
+  const [textAreaHeight, setTextAreaHeight] = useState(DEFAULT_TEXTAREA_HEIGHT);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  /* 
+    - Shadow div concept - 
+    This is a tricky to automatically resize the textarea based on his content.
+    
+    1. First you create a div that is a clone of your textarea, same style and height.
+    2. Make this div contentEditable, so you can change the textContent without using refs or states
+    3. Keep track of the shadow div height and replicate the same height to the textarea
+  */
+
+  const shadowDivRef = useRef<HTMLDivElement>(null);
+
+  const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    shadowDivRef.current!.textContent = e.currentTarget.value;
+    setTextAreaHeight(
+      shadowDivRef.current!.clientHeight === 16
+        ? 40
+        : shadowDivRef.current!.clientHeight
+    );
   };
 
-  const handleSendMessage = () => {
-    if (!message.current.length) {
-      return;
-    }
+  const handleSendMessage = (value: string) => {
+    if (!value) return false;
     const definedMessage: IMessage = {
-      content: message.current,
+      content: value,
       email: user.email,
     };
 
     sendMessage(definedMessage);
-    clearField();
   };
 
-  const handleKeypress = (e: any) => {
-    if (e.code === "Enter") {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // prevent default from some keys that autocomplete uses
+    if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Tab") {
       e.preventDefault();
-      handleSendMessage();
+    }
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSendMessage(e.currentTarget.value);
+      e.currentTarget.value = "";
     }
   };
 
-  const handleOnInput = () => {
-    const value = inputRef.current!.textContent;
-    message.current = value || "";
+  const onClickSendMessage = () => {
+    const value = inputRef.current?.value;
+    if (value) {
+      handleSendMessage(value);
+    }
   };
 
   return {
-    handleOnInput,
-    handleKeypress,
-    handleSendMessage,
+    onClickSendMessage,
+    handleKeyDown,
+    handleChange,
+    shadowDivRef,
     inputRef,
+    style: {
+      height: textAreaHeight,
+    },
   };
 };
 

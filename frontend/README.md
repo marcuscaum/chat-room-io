@@ -7,6 +7,7 @@ https://chat-room-io.netlify.app/
 - Login
 - Messages
 - Link Preview
+- Autocomplete with '@' prefix
 
 # How it works
 
@@ -16,7 +17,7 @@ The front-end was published on Netlify, the backend on Heroku, currently the fro
 
 ## Auth System
 
-We store the email using nextjs iron session, saving it in a cookie.
+We store the email using nextjs iron session, saving it in a cookie, prob not the best solution but helps a lot since we don't have a create user page.
 
 # Getting Started
 
@@ -41,7 +42,6 @@ yarn dev
 - Tests (integration, unit...)
 - Private chat messages
 - User Profile
-- Name for user object so can mention it with @
 - Better performance for socket server (implement rooms)
 - Prevent weird characters on messages
 - Increase security preventing script injection

@@ -8,7 +8,7 @@ interface ITextField extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const TextFieldStyle =
-  "p-2 break-words transition-all ease-in-out duration-300 bg-white rounded-md outline-none text-gray-500 border";
+  "p-2 break-words transition-all ease-in-out duration-200 bg-white rounded-md outline-none text-gray-500 border";
 
 const TextField = (
   {

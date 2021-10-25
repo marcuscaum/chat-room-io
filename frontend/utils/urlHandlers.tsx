@@ -1,17 +1,17 @@
-import { CONSTANTS } from "../constants";
+import { REGEX_VALID_URL } from "../constants";
 
 export const extractUrlFromString = (url: string): string => {
   return (
     url
       ?.replace(/\n/g, ` `)
       .split(/(\s+)/)
-      .find((token) => CONSTANTS.REGEX_VALID_URL.test(token)) || ""
+      .find((token) => REGEX_VALID_URL.test(token)) || ""
   );
 };
 
 export const replaceUrlWithLinks = (url: string): any => {
   return url.split(/(\s+)/).map((part) =>
-    CONSTANTS.REGEX_VALID_URL.test(part) ? (
+    REGEX_VALID_URL.test(part) ? (
       <a
         className="hover:underline text-blue-400 break-all"
         href={part}

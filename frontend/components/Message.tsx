@@ -1,6 +1,7 @@
 import React, { Suspense, useState } from "react";
 import { IMessage } from "../store/messages";
 import { IUser } from "../store/users";
+import { formatMentions } from "../utils/mentionHandlers";
 import {
   extractUrlFromString,
   replaceUrlWithLinks,
@@ -44,7 +45,7 @@ const Message: React.FC<IMessageComponent> = ({
           {isUserMessage ? "Me" : email}:
         </div>
         <div className="m-2">
-          {replaceUrlWithLinks(content)}
+          {formatMentions(replaceUrlWithLinks(content))}
           {foundUrl && (
             <Suspense fallback={<URLPreviewSkeleton />}>
               <URLPreview url={foundUrl} />
