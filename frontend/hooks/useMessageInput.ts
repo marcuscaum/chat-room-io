@@ -52,7 +52,6 @@ const useMessageInput = ({ user }: { user: IUser }) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSendMessage(e.currentTarget.value);
-      e.currentTarget.value = "";
       setInputValue("");
     }
   };
@@ -61,6 +60,7 @@ const useMessageInput = ({ user }: { user: IUser }) => {
     const value = inputRef.current?.value;
     if (value) {
       handleSendMessage(value);
+      setInputValue("");
     }
   };
 
