@@ -25,9 +25,7 @@ const useAutocomplete = ({
   const setInputValueWithMention = useSetRecoilState(
     setAutocompletedMessageInput
   );
-  const [selectedIndex, setSelectedIndex] = useRecoilState(
-    setAutocompleteSelectedIndex
-  );
+  const setSelectedIndex = useSetRecoilState(setAutocompleteSelectedIndex);
 
   useEffect(() => {
     if (!queryValue.length) {
@@ -39,11 +37,11 @@ const useAutocomplete = ({
   }, [queryValue]);
 
   const handleArrowUp = () => {
-    setSelectedIndex(selectedIndex ? selectedIndex - 1 : 0);
+    setSelectedIndex("decrease");
   };
 
   const handleArrowDown = () => {
-    setSelectedIndex(selectedIndex + 1);
+    setSelectedIndex("increase");
   };
 
   const updateMessageWithSelectedUser = () => {
@@ -56,6 +54,7 @@ const useAutocomplete = ({
     updateMessageWithSelectedUser();
   };
 
+  // this is to activate only when autocomplete suggestions are open
   const autocompleteKeyDown = useCallback(
     (e: any) => {
       if (e.key === "Tab" || e.key === "Enter") {

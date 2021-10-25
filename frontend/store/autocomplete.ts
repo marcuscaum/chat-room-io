@@ -70,11 +70,23 @@ export const autocompleteSuggestions = selector({
 export const setAutocompleteSelectedIndex = selector({
   key: "setAutocompleteSelectedIndex",
   get: ({ get }) => get(autocompleteSelectedIndex),
-  set: ({ get, set }, indexValue: number | DefaultValue) => {
+  set: ({ get, set }, actionType: any) => {
     const suggestions = get(autocompleteSuggestions);
-    if (!suggestions.length) return;
+    const selectedIndex = get(autocompleteSelectedIndex);
+    const actionTypes = ["increase", "decrease"];
 
-    set(autocompleteSelectedIndex, indexValue);
+    if (!suggestions.length || !actionTypes.includes(actionType)) return;
+
+    if (actionType === "increase") {
+      set(
+        autocompleteSelectedIndex,
+        selectedIndex === suggestions.length - 1
+          ? selectedIndex
+          : selectedIndex + 1
+      );
+    } else if (actionType === "decrease") {
+      set(autocompleteSelectedIndex, selectedIndex ? selectedIndex - 1 : 0);
+    }
   },
 });
 
