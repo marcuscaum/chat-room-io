@@ -40,6 +40,7 @@ const useSocketEvents = ({ currentUser }: { currentUser: IUser }) => {
       socket.off("current users", setCurrentUsers);
       socket.off("general message", generalMessage);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 };
 
