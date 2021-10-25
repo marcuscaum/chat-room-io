@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { messageInputValue } from "../store/autocomplete";
 
 import { IMessage } from "../store/messages";
 import { IUser } from "../store/users";
@@ -8,6 +10,8 @@ const DEFAULT_TEXTAREA_HEIGHT = 40;
 
 const useMessageInput = ({ user }: { user: IUser }) => {
   const [textAreaHeight, setTextAreaHeight] = useState(DEFAULT_TEXTAREA_HEIGHT);
+  const setInputValue = useSetRecoilState(messageInputValue);
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
   /* 
     - Shadow div concept - 
@@ -48,7 +52,7 @@ const useMessageInput = ({ user }: { user: IUser }) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSendMessage(e.currentTarget.value);
-      e.currentTarget.value = "";
+      setInputValue("");
     }
   };
 
