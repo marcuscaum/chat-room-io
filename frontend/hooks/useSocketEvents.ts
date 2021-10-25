@@ -34,12 +34,6 @@ const useSocketEvents = ({ currentUser }: { currentUser: IUser }) => {
     socket.on("current users", setCurrentUsers);
     socket.on("general message", generalMessage);
     socket.on("disconnect", () => socket.removeAllListeners());
-
-    return () => {
-      socket.off("chat message", addMessage);
-      socket.off("current users", setCurrentUsers);
-      socket.off("general message", generalMessage);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 };
