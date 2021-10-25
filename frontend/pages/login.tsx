@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 
-import { Paper } from "../components";
-import LoginForm from "../components/LoginForm";
+import { LoginForm, Paper } from "../components";
 import redirectUser from "../utils/redirectUser";
 
 export const getServerSideProps = redirectUser;

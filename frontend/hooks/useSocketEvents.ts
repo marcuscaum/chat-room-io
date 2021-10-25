@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import socket from "../services/socketio";
 
+import socket from "../services/socketio";
 import messagesState, { IMessage } from "../store/messages";
 import usersState, { IUser } from "../store/users";
 

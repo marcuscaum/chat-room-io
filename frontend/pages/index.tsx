@@ -1,6 +1,4 @@
-import { Paper, MessagesBox, Button } from "../components";
-import MessageInput from "../components/MessageInput";
-import UsersList from "../components/UsersList";
+import { Paper, MessagesBox, MessageInput, UsersList } from "../components";
 import useSocketEvents from "../hooks/useSocketEvents";
 import handleLogout from "../services/logout";
 import redirectUser from "../utils/redirectUser";

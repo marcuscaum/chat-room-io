@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useSetRecoilState } from "recoil";
 
 import { IMessage } from "../store/messages";
 import { IUser } from "../store/users";

@@ -35,6 +35,7 @@ const useAutocomplete = ({
     }
 
     inputElement?.addEventListener("keydown", autocompleteKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryValue]);
 
   const handleArrowUp = () => {

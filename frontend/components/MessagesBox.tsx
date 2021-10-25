@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { Message, Paper } from ".";
+import { AutocompleteSuggestions, Message, Paper } from ".";
 import messagesState from "../store/messages";
 import { IUser } from "../store/users";
-import AutocompleteSuggestions from "./AutoCompleteSuggestions";
 
 const MessagesBox: React.FC<{ user: IUser }> = ({ user }) => {
   const messages = useRecoilValue(messagesState);
